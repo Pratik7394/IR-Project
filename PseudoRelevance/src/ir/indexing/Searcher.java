@@ -1,4 +1,4 @@
-package lucene;
+package ir.indexing;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,14 +16,15 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 
+import ir.util.LuceneConstants;
+
 public class Searcher {
 	
    IndexSearcher indexSearcher;
    QueryParser queryParser;
    Query query;
    
-   @SuppressWarnings("deprecation")
-public Searcher(String indexDirectoryPath) 
+   public Searcher(String indexDirectoryPath) 
       throws IOException {
       Directory indexDirectory = 
          FSDirectory.open(new File(indexDirectoryPath));

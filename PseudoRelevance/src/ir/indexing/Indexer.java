@@ -1,4 +1,21 @@
-package lucene;
+package ir.indexing;
+
+import java.io.File;
+import java.io.FileFilter;
+import java.io.FileReader;
+import java.io.IOException;
+
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.document.Document;
+import org.apache.lucene.document.Field;
+import org.apache.lucene.index.CorruptIndexException;
+import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.FSDirectory;
+import org.apache.lucene.util.Version;
+
+import ir.util.LuceneConstants;
+
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileReader;
@@ -17,8 +34,7 @@ public class Indexer {
 
    private IndexWriter writer;
 
-   @SuppressWarnings("deprecation")
-public Indexer(String indexDirectoryPath) throws IOException {
+   public Indexer(String indexDirectoryPath) throws IOException {
       //this directory will contain the indexes
       Directory indexDirectory = 
          FSDirectory.open(new File(indexDirectoryPath));
@@ -62,7 +78,7 @@ public Indexer(String indexDirectoryPath) throws IOException {
       throws IOException {
       //get all files in the data directory
       File[] files = new File(dataDirPath).listFiles();
-      try {
+      System.out.println("Path: " + dataDirPath);
       for (File file : files) {
          if(!file.isDirectory()
             && !file.isHidden()
@@ -73,10 +89,6 @@ public Indexer(String indexDirectoryPath) throws IOException {
             indexFile(file);
          }
       }
-      } catch (NullPointerException e) {
-    	  	System.out.println(e.getMessage());
-      }
-    	  	
       return writer.numDocs();
    }
 }
